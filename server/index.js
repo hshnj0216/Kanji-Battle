@@ -3,9 +3,6 @@ const app = express();
 const cors = require('cors');
 const JishoApI = require('unofficial-jisho-api');
 
-
-app.use(express.static(__dirname + '/static'));
-
 app.use(cors());
 
 app.get('/data/:kanji',async (req, res) => {
