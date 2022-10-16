@@ -5,6 +5,16 @@ const JishoApI = require('unofficial-jisho-api');
 
 app.use(cors());
 
+app.get('/parts/:part', async(req, res) => {
+    const jisho = new JishoApI();
+    res.send(await jisho.searchForKanji(req.params.part).then(data => data));
+})
+
+app.get('/examples/:kanji', async(req, res) => {
+    const jisho = new JishoApI();
+    res.send(await jisho.searchForExamples(req.params.kanji).then(data => data));
+})
+
 app.get('/data/:kanji',async (req, res) => {
     const jisho = new JishoApI();
     res.send(result = {
@@ -12,9 +22,6 @@ app.get('/data/:kanji',async (req, res) => {
                 await jisho.searchForKanji(req.params.kanji).then(r => {
                 if (r.found == true) {
                     return r;
-                }
-                else {
-                    res.send({ error: "Invalid input or no result found." });
                 }
             }), 
             audioData: 
